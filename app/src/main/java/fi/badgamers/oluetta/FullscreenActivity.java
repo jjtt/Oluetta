@@ -17,15 +17,17 @@ public class FullscreenActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setStatusBarColor(Color.BLACK);
         mWebView = new WebView(this);
-        mWebView.loadUrl("https://www.badgamers.fi/game/17/o.php");
+        mWebView.getSettings().setLoadWithOverviewMode(true);
+        mWebView.setBackgroundColor(Color.BLACK);
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 return false;
             }
         });
+
+        mWebView.loadUrl("https://www.badgamers.fi/game/17/o.php?c=app");
 
         this.setContentView(mWebView);
     }
