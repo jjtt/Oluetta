@@ -1,4 +1,4 @@
-package fi.badgamers.olutta;
+package fi.badgamers.oluetta;
 
 
 import android.app.Activity;
