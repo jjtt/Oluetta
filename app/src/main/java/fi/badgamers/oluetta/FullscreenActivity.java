@@ -22,7 +22,7 @@ public class FullscreenActivity extends Activity {
         mDecorView = getWindow().getDecorView();
         mWebView = new WebView(this);
         mWebView.getSettings().setLoadWithOverviewMode(true);
-        mWebView.setBackgroundColor(Color.BLACK);
+        mWebView.setBackgroundColor(Color.TRANSPARENT);
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -30,7 +30,7 @@ public class FullscreenActivity extends Activity {
             }
         });
 
-        mWebView.loadUrl("https://www.badgamers.fi/game/17/o.php?c=app");
+        mWebView.loadUrl(BuildConfig.OLUETTA_URL);
 
         this.setContentView(mWebView);
     }

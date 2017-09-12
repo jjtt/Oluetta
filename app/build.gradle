@@ -15,6 +15,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "OLUETTA_URL", oluettaUrl
+        }
+        debug {
+            buildConfigField "String", "OLUETTA_URL", oluettaUrl
         }
     }
 }
