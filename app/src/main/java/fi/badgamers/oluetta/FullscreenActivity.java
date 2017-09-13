@@ -4,12 +4,14 @@ package fi.badgamers.oluetta;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 public class FullscreenActivity extends Activity {
     private WebView mWebView;
@@ -17,6 +19,8 @@ public class FullscreenActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        final GestureDetector gestureDetector = new GestureDetector(this, new GestureListener(this));
+
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         mDecorView = getWindow().getDecorView();
@@ -27,6 +31,13 @@ public class FullscreenActivity extends Activity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 return false;
+            }
+        });
+        mWebView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return gestureDetector.onTouchEvent(motionEvent);
             }
         });
 
@@ -56,4 +67,7 @@ public class FullscreenActivity extends Activity {
     }
 
 
+    public void onDoubleTap() {
+        Toast.makeText(this, "Double tap detected", Toast.LENGTH_SHORT).show();
+    }
 }
