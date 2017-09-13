@@ -2,8 +2,10 @@ package fi.badgamers.oluetta;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 public class FullscreenActivity extends Activity {
+    private static final int SETTINGS_REQUEST = 1;
+
     private WebView mWebView;
     private View mDecorView;
 
@@ -22,6 +26,9 @@ public class FullscreenActivity extends Activity {
         final GestureDetector gestureDetector = new GestureDetector(this, new GestureListener(this));
 
         super.onCreate(savedInstanceState);
+
+        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
+
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         mDecorView = getWindow().getDecorView();
         mWebView = new WebView(this);
@@ -41,7 +48,7 @@ public class FullscreenActivity extends Activity {
             }
         });
 
-        mWebView.loadUrl(BuildConfig.OLUETTA_URL);
+        mWebView.loadUrl(PreferenceManager.getDefaultSharedPreferences(this).getString("oluetta_url", ""));
 
         this.setContentView(mWebView);
     }
@@ -69,5 +76,7 @@ public class FullscreenActivity extends Activity {
 
     public void onDoubleTap() {
         Toast.makeText(this, "Double tap detected", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, SettingsActivity.class);
+                startActivityForResult(intent, SETTINGS_REQUEST);
     }
 }

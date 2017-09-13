@@ -10,7 +10,7 @@ WebView app for showing a web page in a cheap "kiosk-mode" using screen pinning
 
 ## TODO
 
-* configurable url
+* protect the settings with a passcode of some kind
 * actual kiosk mode:
     * http://www.sureshjoshi.com/mobile/android-kiosk-mode-without-root/
     * as a launcher?
