@@ -48,9 +48,16 @@ public class FullscreenActivity extends Activity {
             }
         });
 
-        mWebView.loadUrl(PreferenceManager.getDefaultSharedPreferences(this).getString("oluetta_url", ""));
+        loadUrl();
 
         this.setContentView(mWebView);
+    }
+
+    /**
+     * Load the url specified in settings
+     */
+    private void loadUrl() {
+        mWebView.loadUrl(PreferenceManager.getDefaultSharedPreferences(this).getString("oluetta_url", ""));
     }
 
     @Override
@@ -77,6 +84,13 @@ public class FullscreenActivity extends Activity {
     public void onDoubleTap() {
         Toast.makeText(this, "Double tap detected", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, SettingsActivity.class);
-                startActivityForResult(intent, SETTINGS_REQUEST);
+        startActivityForResult(intent, SETTINGS_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SETTINGS_REQUEST) {
+            loadUrl();
+        }
     }
 }
