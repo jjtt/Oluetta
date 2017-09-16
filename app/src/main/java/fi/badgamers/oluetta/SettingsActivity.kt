@@ -97,10 +97,8 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("oluetta_url"))
-            bindPreferenceSummaryToValue(findPreference("example_list"))
 
-            val button = findPreference("oluetta_clear_device_owner_app")
-            button.onPreferenceClickListener = object : Preference.OnPreferenceClickListener {
+            findPreference("oluetta_clear_device_owner_app").onPreferenceClickListener = object : Preference.OnPreferenceClickListener {
                 override fun onPreferenceClick(preference: Preference?): Boolean {
                     val activity = this@GeneralPreferenceFragment.activity
                     val dpm: DevicePolicyManager = activity
@@ -112,6 +110,13 @@ class SettingsActivity : AppCompatPreferenceActivity() {
                     } catch (e: SecurityException) {
                         Toast.makeText(activity, "Clearing of device owner app failed: " + e.message, Toast.LENGTH_LONG).show()
                     }
+                    return true
+                }
+            }
+
+            findPreference("oluetta_exit_kiosk_mode").onPreferenceClickListener = object : Preference.OnPreferenceClickListener {
+                override fun onPreferenceClick(preference: Preference?): Boolean {
+                    this@GeneralPreferenceFragment.activity.stopLockTask()
                     return true
                 }
             }

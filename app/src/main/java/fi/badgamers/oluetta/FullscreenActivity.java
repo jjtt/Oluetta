@@ -107,7 +107,6 @@ public class FullscreenActivity extends Activity {
 
 
     public void onDoubleTap() {
-        Toast.makeText(this, "Double tap detected", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivityForResult(intent, SETTINGS_REQUEST);
     }
