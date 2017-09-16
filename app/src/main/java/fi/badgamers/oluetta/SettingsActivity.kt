@@ -3,6 +3,7 @@ package fi.badgamers.oluetta
 
 import android.annotation.TargetApi
 import android.app.admin.DevicePolicyManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -101,10 +102,12 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             findPreference("oluetta_clear_device_owner_app").onPreferenceClickListener = object : Preference.OnPreferenceClickListener {
                 override fun onPreferenceClick(preference: Preference?): Boolean {
                     val activity = this@GeneralPreferenceFragment.activity
+                    val deviceAdmin = ComponentName(activity, AdminReceiver::class.java)
                     val dpm: DevicePolicyManager = activity
                             .getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
 
                     try {
+                        dpm.setLockTaskPackages(deviceAdmin, arrayOf<String>());
                         dpm.clearDeviceOwnerApp(activity.packageName);
                         Toast.makeText(activity, "Device owner app cleared", Toast.LENGTH_SHORT).show()
                     } catch (e: SecurityException) {
