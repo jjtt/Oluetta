@@ -2,6 +2,9 @@ package fi.badgamers.oluetta;
 
 
 import android.app.Activity;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +32,8 @@ public class FullscreenActivity extends Activity {
 
         PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
 
+        enterKioskMode();
+
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         mDecorView = getWindow().getDecorView();
         mWebView = new WebView(this);
@@ -51,6 +56,26 @@ public class FullscreenActivity extends Activity {
         loadUrl();
 
         this.setContentView(mWebView);
+    }
+
+    private void enterKioskMode() {
+        ComponentName deviceAdmin = new ComponentName(this, AdminReceiver.class);
+        DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        if (!dpm.isAdminActive(deviceAdmin)) {
+            Toast.makeText(this, getString(R.string.not_device_admin), Toast.LENGTH_SHORT).show();
+        }
+
+        if (dpm.isDeviceOwnerApp(getPackageName())) {
+            dpm.setLockTaskPackages(deviceAdmin, new String[]{getPackageName()});
+        } else {
+            Toast.makeText(this, getString(R.string.not_device_owner), Toast.LENGTH_SHORT).show();
+        }
+
+        if (dpm.isLockTaskPermitted(this.getPackageName())) {
+            startLockTask();
+        } else {
+            Toast.makeText(this, getString(R.string.kiosk_not_permitted), Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
