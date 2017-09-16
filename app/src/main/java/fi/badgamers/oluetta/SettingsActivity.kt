@@ -12,13 +12,8 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.preference.ListPreference
-import android.preference.Preference
-import android.preference.PreferenceActivity
+import android.preference.*
 import android.support.v7.app.ActionBar
-import android.preference.PreferenceFragment
-import android.preference.PreferenceManager
-import android.preference.RingtonePreference
 import android.text.TextUtils
 import android.view.MenuItem
 import android.widget.Toast
@@ -119,7 +114,18 @@ class SettingsActivity : AppCompatPreferenceActivity() {
 
             findPreference("oluetta_exit_kiosk_mode").onPreferenceClickListener = object : Preference.OnPreferenceClickListener {
                 override fun onPreferenceClick(preference: Preference?): Boolean {
-                    this@GeneralPreferenceFragment.activity.stopLockTask()
+                    val activity = this@GeneralPreferenceFragment.activity
+                    activity.stopLockTask()
+                    return true
+                }
+            }
+
+            findPreference("oluetta_launcher_switch").onPreferenceChangeListener = object : Preference.OnPreferenceChangeListener {
+                override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
+                    val activity = this@GeneralPreferenceFragment.activity
+                    val switchPreference = preference as SwitchPreference
+                    val enable = !switchPreference.isChecked
+                    HomeActivity.homeComponentEnabled(activity, enable)
                     return true
                 }
             }

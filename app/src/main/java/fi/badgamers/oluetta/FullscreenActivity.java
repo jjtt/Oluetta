@@ -32,6 +32,8 @@ public class FullscreenActivity extends Activity {
 
         PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
 
+        HomeActivity.homeComponentEnabled(this, PreferenceManager.getDefaultSharedPreferences(this).getBoolean("oluetta_launcher_switch", false));
+
         enterKioskMode();
 
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);

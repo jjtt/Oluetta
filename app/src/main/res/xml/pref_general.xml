@@ -12,12 +12,20 @@
         android:singleLine="true"
         android:title="@string/pref_title_oluetta_url" />
 
-    <Preference android:title="@string/pref_title_clear_device_owner_app"
+    <Preference
         android:key="oluetta_clear_device_owner_app"
-        android:summary="@string/pref_summary_clear_device_owner_app"/>
+        android:summary="@string/pref_summary_clear_device_owner_app"
+        android:title="@string/pref_title_clear_device_owner_app" />
 
-    <Preference android:title="@string/pref_title_exit_kiosk"
+    <Preference
         android:key="oluetta_exit_kiosk_mode"
-        android:summary="@string/pref_summary_exit_kiosk"/>
+        android:summary="@string/pref_summary_exit_kiosk"
+        android:title="@string/pref_title_exit_kiosk" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="oluetta_launcher_switch"
+        android:summary="@string/pref_description_launcher"
+        android:title="@string/pref_title_launcher" />
 
 </PreferenceScreen>

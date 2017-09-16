@@ -14,6 +14,8 @@
     <string name="pref_summary_clear_device_owner_app">Click here to clear device owner app and allow uninstalling of this app</string>
     <string name="pref_title_exit_kiosk">Exit Kiosk Mode</string>
     <string name="pref_summary_exit_kiosk">Click here to exit Kiosk Mode</string>
+    <string name="pref_title_launcher">Launcher</string>
+    <string name="pref_description_launcher">This app can be used as the default launcher</string>
 
 
     <string name="device_admin_enabled">Device Admin enabled</string>
