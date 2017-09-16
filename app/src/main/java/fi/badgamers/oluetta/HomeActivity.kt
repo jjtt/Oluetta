@@ -14,12 +14,12 @@ class HomeActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val intent = Intent(this, FullscreenActivity::class.java)
-        startActivityForResult(intent, 0)
+        onActivityResult(0, 0, null)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        finish()
+        val intent = Intent(this, FullscreenActivity::class.java)
+        startActivityForResult(intent, 0)
     }
 
     companion object {
