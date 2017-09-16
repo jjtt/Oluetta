@@ -39,6 +39,15 @@ class SettingsActivity : AppCompatPreferenceActivity() {
         setupActionBar()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     /**
      * Set up the [android.app.ActionBar], if the API is available.
      */
@@ -106,15 +115,6 @@ class SettingsActivity : AppCompatPreferenceActivity() {
                     return true
                 }
             }
-        }
-
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
-            val id = item.itemId
-            if (id == android.R.id.home) {
-                startActivity(Intent(activity, SettingsActivity::class.java))
-                return true
-            }
-            return super.onOptionsItemSelected(item)
         }
     }
 
