@@ -2,6 +2,7 @@ package fi.badgamers.oluetta
 
 
 import android.annotation.TargetApi
+import android.app.admin.DevicePolicyManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -19,6 +20,7 @@ import android.preference.PreferenceManager
 import android.preference.RingtonePreference
 import android.text.TextUtils
 import android.view.MenuItem
+import android.widget.Toast
 
 /**
  * A [PreferenceActivity] that presents a set of application settings. On
@@ -87,6 +89,23 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("oluetta_url"))
             bindPreferenceSummaryToValue(findPreference("example_list"))
+
+            val button = findPreference("oluetta_clear_device_owner_app")
+            button.onPreferenceClickListener = object : Preference.OnPreferenceClickListener {
+                override fun onPreferenceClick(preference: Preference?): Boolean {
+                    val activity = this@GeneralPreferenceFragment.activity
+                    val dpm: DevicePolicyManager = activity
+                            .getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+
+                    try {
+                        dpm.clearDeviceOwnerApp(activity.packageName);
+                        Toast.makeText(activity, "Device owner app cleared", Toast.LENGTH_SHORT).show()
+                    } catch (e: SecurityException) {
+                        Toast.makeText(activity, "Clearing of device owner app failed: " + e.message, Toast.LENGTH_LONG).show()
+                    }
+                    return true
+                }
+            }
         }
 
         override fun onOptionsItemSelected(item: MenuItem): Boolean {

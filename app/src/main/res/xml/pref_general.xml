@@ -12,6 +12,10 @@
         android:singleLine="true"
         android:title="@string/pref_title_oluetta_url" />
 
+    <Preference android:title="@string/pref_title_clear_device_owner_app"
+        android:key="oluetta_clear_device_owner_app"
+        android:summary="@string/pref_summary_clear_device_owner_app"/>
+
     <SwitchPreference
         android:defaultValue="true"
         android:key="example_switch"

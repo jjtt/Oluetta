@@ -16,6 +16,8 @@
     </string>
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string name="pref_title_clear_device_owner_app">Clear device owner app</string>
+    <string name="pref_summary_clear_device_owner_app">Click here to clear device owner app and allow uninstalling of this app</string>
     <string-array name="pref_example_list_titles">
         <item>Always</item>
         <item>When possible</item>
