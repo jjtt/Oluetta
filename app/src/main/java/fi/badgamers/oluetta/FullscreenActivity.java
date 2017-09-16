@@ -13,6 +13,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -35,6 +36,9 @@ public class FullscreenActivity extends Activity {
         HomeActivity.homeComponentEnabled(this, PreferenceManager.getDefaultSharedPreferences(this).getBoolean("oluetta_launcher_switch", false));
 
         enterKioskMode();
+
+        // keep the sceen on
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         mDecorView = getWindow().getDecorView();
