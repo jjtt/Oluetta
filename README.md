@@ -15,7 +15,7 @@ Most of the inspiration comes from here: http://www.sureshjoshi.com/mobile/andro
 1. Build and install
 1. Set as device owner (adb shell dpm set-device-owner fi.badgamers.oluetta/.AdminReceiver)
 1. Start app
-1. Double tap anywhere to enter settings
+1. Double tap three times anywhere to enter settings
 
 ## TODO
 
