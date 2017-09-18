@@ -93,6 +93,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("oluetta_url"))
+            bindPreferenceSummaryToValue(findPreference("oluetta_orientation"))
 
             findPreference("oluetta_clear_device_owner_app").onPreferenceClickListener = object : Preference.OnPreferenceClickListener {
                 override fun onPreferenceClick(preference: Preference?): Boolean {
@@ -129,6 +130,11 @@ class SettingsActivity : AppCompatPreferenceActivity() {
                     return true
                 }
             }
+        }
+
+        override fun onResume() {
+            super.onResume()
+            FullscreenActivity.updateOrientation(this.activity)
         }
     }
 

@@ -6,9 +6,11 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -64,6 +66,28 @@ public class FullscreenActivity extends Activity {
         this.setContentView(mWebView);
     }
 
+    public static void updateOrientation(Activity activity) {
+        String orientationString = PreferenceManager.getDefaultSharedPreferences(activity).getString("oluetta_orientation", "-1");
+        Log.d("ORIENTATION", orientationString);
+        Log.d("ORIENTATION", "constant:" + ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+        int orientation = Integer.parseInt(orientationString);
+        switch (orientation) {
+            case ActivityInfo.SCREEN_ORIENTATION_PORTRAIT:
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                break;
+            case ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE:
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                break;
+            case ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT:
+                Log.d("ORIENTATION", "settings reverse portrait");
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+                break;
+            case ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE:
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
+                break;
+        }
+    }
+
     private void enterKioskMode() {
         ComponentName deviceAdmin = new ComponentName(this, AdminReceiver.class);
         DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -95,6 +119,7 @@ public class FullscreenActivity extends Activity {
     protected void onResume() {
         super.onResume();
         hideSystemUI();
+        updateOrientation(this);
     }
 
     // This snippet hides the system bars.
